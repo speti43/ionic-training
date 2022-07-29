@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/offers"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="place" href="/tabs/offers/edit/{{place.id}}">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Offer Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ place.title }}</ion-card-title>
+      <ion-card-subtitle>{{ place.price | currency }} / Night</ion-card-subtitle>
+    </ion-card-header>
+    <ion-img [src]="place.imageUrl"></ion-img>
+    <ion-card-content>
+      <p>{{ place.description }}</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

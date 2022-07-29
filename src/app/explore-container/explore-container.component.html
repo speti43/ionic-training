@@ -1,0 +1,34 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size-xs="12" size-md="6">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Essential data</ion-card-subtitle>
+          <ion-card-title>Main data</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating">Course name</ion-label>
+            <ion-input [(ngModel)]="courseRating.course"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Course rating</ion-label>
+            <ion-input type="number" [(ngModel)]="courseRating.rating"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-col>
+
+  </ion-row>
+</ion-grid>
+<ion-item *ngFor="let cr of courseRatings">{{cr.course}} - {{cr.rating}}</ion-item>
+<div class="ion-text-right ion-margin-horizontal">
+  <ion-button color="danger">
+    <ion-icon slot="start" name="arrow-undo-outline"></ion-icon>Cancel
+  </ion-button>
+  <ion-button color="primary" (click)="save()">
+    <ion-icon slot="start" name="save-outline"></ion-icon>Save
+  </ion-button>
+</div>

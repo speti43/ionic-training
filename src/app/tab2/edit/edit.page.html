@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/offers"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{place.title}} edit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col sizeMd="6" offsetMd="3">
+          <ion-item>
+            <ion-label position="floating">Title</ion-label>
+            <ion-input name="title" [(ngModel)]="place.title"></ion-input>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col sizeMd="6" offsetMd="3">
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-input name="description" [(ngModel)]="place.description"></ion-input>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col sizeMd="6" offsetMd="3">
+          <ion-item>
+            <ion-label position="floating">Price</ion-label>
+            <ion-input type="number" name="price" [(ngModel)]="place.price"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col sizeMd="6" offsetMd="3">
+          <ion-item>
+            <ion-label position="floating">Image</ion-label>
+            <ion-input name="imageUrl" [(ngModel)]="place.imageUrl"></ion-input>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col sizeMd="6" offsetMd="3">
+          <ion-button color="success" (click)="save()">Save</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
