@@ -16,8 +16,6 @@ export class Tab2Page implements ViewWillEnter {
   }
 
   remove(p: Place) {
-    this.placesService.places = this.placesService.places.filter(
-      (r) => r.id !== p.id
-    );
+ 
   }
 }

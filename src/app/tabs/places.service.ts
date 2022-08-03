@@ -1,44 +1,58 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Place } from './place.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlacesService {
-  private _places: Place[] = [
-    new Place(
-      'p1',
-      'Manhattan Mansion',
-      'In the heart of New York City.',
-      'https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200',
-      149.99
-    ),
-    new Place(
-      'p2',
-      "L'Amour Toujours",
-      'A romantic place in Paris!',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Paris_Night.jpg/1024px-Paris_Night.jpg',
-      189.99
-    ),
-    new Place(
-      'p3',
-      'The Foggy Palace',
-      'Not your average city trip!',
-      'https://upload.wikimedia.org/wikipedia/commons/0/01/San_Francisco_with_two_bridges_and_the_fog.jpg',
-      99.99
-    ),
-  ];
+  private _places: Place[] = [];
+
+  constructor(private db: HttpClient) {
+    this.db
+      .get(
+        'https://ionictest-319dc-default-rtdb.europe-west1.firebasedatabase.app/places.json'
+      )
+      .subscribe((r: Place[]) => {
+        if (r) {
+          Object.keys(r).map((id) => {
+            const p: Place = r[id];
+            p.id = id;
+            this._places.push(p);
+          });
+        }
+      });
+  }
 
   get places() {
     return [...this._places];
   }
 
-  set places(p: Place[]) {
-    this._places = p;
+  updatePlace(p: Place) {
+    return this.db
+      .put(
+        `https://ionictest-319dc-default-rtdb.europe-west1.firebasedatabase.app/places/${p.id}.json`,
+        p
+      )
+      .pipe(
+        map(() => {
+          this._places = [...this._places.filter((r) => r.id !== p.id), p];
+        })
+      );
   }
 
-  updatePlace(p: Place) {
-    this._places = [...this._places.filter((r) => r.id !== p.id), p];
+  addPlace(p: Place) {
+    return this.db
+      .post(
+        'https://ionictest-319dc-default-rtdb.europe-west1.firebasedatabase.app/places.json',
+        p
+      )
+      .pipe(
+        map((id: string) => {
+          p.id = id;
+          this._places.push(p);
+        })
+      );
   }
-  constructor() {}
 }

@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/tabs/offers"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button *ngIf="place" href="/tabs/offers/edit/{{place.id}}">
+      <ion-button *ngIf="place" [routerLink]="['/', 'tabs', 'offers','edit', place.id]">
         <ion-icon name="pencil"></ion-icon>
       </ion-button>
     </ion-buttons>

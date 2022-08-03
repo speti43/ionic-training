@@ -8,11 +8,8 @@ import { PlacesService } from '../tabs/places.service';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
-  loadedPlaces: Place[];
+  
+  constructor(public placesService: PlacesService) { }
 
-  constructor(private placesService: PlacesService) { }
-
-  ngOnInit() {
-    this.loadedPlaces = this.placesService.places;
-  }
+ 
 }

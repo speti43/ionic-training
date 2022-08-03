@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { Place } from 'src/app/tabs/place.model';
+import { PlacesService } from 'src/app/tabs/places.service';
 
 @Component({
   selector: 'app-new',
@@ -6,10 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new.page.scss'],
 })
 export class NewPage implements OnInit {
+  place: Place = {
+    id: null,
+    description: '',
+    imageUrl: '',
+    price: 20,
+    title: '',
+  };
+  constructor(
+    private placesService: PlacesService,
+    private navCtrl: NavController
+  ) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  save() {
+    this.placesService.addPlace(this.place).subscribe();
+    this.navCtrl.navigateBack('/tabs/offers');
   }
-
 }

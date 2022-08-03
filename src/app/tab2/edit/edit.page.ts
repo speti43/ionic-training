@@ -11,7 +11,11 @@ import { PlacesService } from 'src/app/tabs/places.service';
 })
 export class EditPage implements OnInit {
   place: Place;
-  constructor(route: ActivatedRoute, private placesService: PlacesService, private navCtrl:NavController) {
+  constructor(
+    route: ActivatedRoute,
+    private placesService: PlacesService,
+    private navCtrl: NavController
+  ) {
     route.paramMap.subscribe(
       (r) =>
         (this.place = placesService.places.find(
@@ -23,7 +27,8 @@ export class EditPage implements OnInit {
   ngOnInit() {}
 
   save() {
-    this.placesService.updatePlace(this.place);
-    this.navCtrl.navigateBack('/tabs/offers');
+    this.placesService.updatePlace(this.place).subscribe(() => {
+      this.navCtrl.navigateBack('/tabs/offers');
+    });
   }
 }
