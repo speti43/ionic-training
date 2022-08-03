@@ -9,7 +9,9 @@ import { PlacesService } from '../tabs/places.service';
 })
 export class Tab1Page {
   
-  constructor(public placesService: PlacesService) { }
+  constructor(public placesService: PlacesService) {
+    this.placesService.getPlaces().subscribe();
+   }
 
  
 }

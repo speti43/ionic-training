@@ -10,7 +10,9 @@ import { PlacesService } from '../tabs/places.service';
 })
 export class Tab2Page implements ViewWillEnter {
 
-  constructor(public placesService: PlacesService) {}
+  constructor(public placesService: PlacesService) {
+    this.placesService.getPlaces().subscribe();
+  }
 
   ionViewWillEnter() {
   }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Place } from './place.model';
 import { map } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,21 +10,7 @@ import { map } from 'rxjs/operators';
 export class PlacesService {
   private _places: Place[] = [];
 
-  constructor(private db: HttpClient) {
-    this.db
-      .get(
-        'https://ionictest-319dc-default-rtdb.europe-west1.firebasedatabase.app/places.json'
-      )
-      .subscribe((r: Place[]) => {
-        if (r) {
-          Object.keys(r).map((id) => {
-            const p: Place = r[id];
-            p.id = id;
-            this._places.push(p);
-          });
-        }
-      });
-  }
+  constructor(private db: HttpClient) {}
 
   get places() {
     return [...this._places];
@@ -54,5 +41,37 @@ export class PlacesService {
           this._places.push(p);
         })
       );
+  }
+  getPlace(id: string) {
+    return this.db
+      .get(
+        `https://ionictest-319dc-default-rtdb.europe-west1.firebasedatabase.app/places/${id}.json`
+      )
+      .pipe(
+        map((p) => {
+          return p;
+        })
+      );
+  }
+
+  getPlaces(force = false) {
+    if (force || !this._places.length) {
+      return this.db
+        .get(
+          'https://ionictest-319dc-default-rtdb.europe-west1.firebasedatabase.app/places.json'
+        )
+        .pipe(
+          map((r: Place[]) => {
+            if (r) {
+              Object.keys(r).map((id) => {
+                const p: Place = r[id];
+                p.id = id;
+                this._places.push(p);
+              });
+            }
+          })
+        );
+    }
+    return EMPTY;
   }
 }
